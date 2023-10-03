@@ -1,0 +1,25 @@
+_type: prompt
+input_variables:
+    ["ai_message", "user_prediction_thought", "actual"]
+template: >
+    You are tasked with assessing the degree to which a generated thought about what a user would say encapsulated their actual response. You have at your disposal the most recent AI message, the thought about what the user would say, and the actual response.
+
+    AI message: ```
+    {ai_message}
+    ```
+
+    thought: ```
+    {user_prediction_thought}
+    ```
+
+    actual: ```
+    {actual}
+    ```
+
+    In assessing the degree to which the thought about the user's response encapsulated what they actually said, choose from the following values:
+
+    1. very
+    2. somewhat
+    3. neutral
+    4. poorly
+    5. wrong
