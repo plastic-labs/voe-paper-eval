@@ -26,7 +26,7 @@ system_eval: SystemMessagePromptTemplate = SystemMessagePromptTemplate(prompt=SY
 llm = AzureChatOpenAI(deployment_name = os.environ['OPENAI_API_DEPLOYMENT_NAME'], temperature=1)
 
 
-async def get_eval(joint, session_id: str, honcho: bool = True):
+async def get_eval(joint, session_id: str, voe: bool = True):
     """Given a list of joined thought-response pairs, get the eval"""
     data = []
     prompt = ChatPromptTemplate.from_messages([
@@ -48,7 +48,7 @@ async def get_eval(joint, session_id: str, honcho: bool = True):
                     "assessment": result.content,
                     "session_id": session_id,
                     "conversation_turn": item[3],
-                    "honcho": honcho,
+                    "voe": voe,
                 }
             )
             print(f"ASSESSMENT: {result.content}")
@@ -62,15 +62,15 @@ async def get_eval(joint, session_id: str, honcho: bool = True):
 async def main():
     """ Read in data, execute loop, collect results"""
 
-    honcho_session_ids = pd.read_csv(os.environ['CSV_TABLE']).values.ravel().tolist()
-    before_count = len(honcho_session_ids)
+    voe_session_ids = pd.read_csv(os.environ['CSV_TABLE']).values.ravel().tolist()
+    before_count = len(voe_session_ids)
 
     # query to see what's already been done
     existing_session_ids = supabase.table(os.environ['SUPABASE_RESULTS_TABLE']).select('session_id').execute()
     # Convert existing_session_ids.data to a set for faster lookup
     existing_session_ids_set = set(d['session_id'] for d in existing_session_ids.data)
     # remove existing from unique
-    unique_session_ids = [d for d in honcho_session_ids if d not in existing_session_ids_set]
+    unique_session_ids = [d for d in voe_session_ids if d not in existing_session_ids_set]
     after_count = len(unique_session_ids)
 
     print(f"Removed {before_count - after_count} session IDs")
