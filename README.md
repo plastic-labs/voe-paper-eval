@@ -43,3 +43,18 @@ create table
 ```
 
 Any questions feel free to reach out to vince [at] plasticlabs [dot] ai.
+
+## Reference
+
+Use the following BibTeX citation to reference the paper
+
+```
+@misc{leer2023violation,
+      title={Violation of Expectation via Metacognitive Prompting Reduces Theory of Mind Prediction Error in Large Language Models}, 
+      author={Courtland Leer and Vincent Trost and Vineeth Voruganti},
+      year={2023},
+      eprint={2310.06983},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
